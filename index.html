@@ -8,6 +8,36 @@
     <script src="src/index.js"></script>
 </head>
 <body>
-    <div id="board-container"></div>
+
+    <div class="form-container">
+
+        <form id="create-comment-form" style="">
+          <h3>Create a Comment!</h3>
+      
+          
+          <textarea id='input-content' name="content" rows="8" cols="80" value="" placeholder="What's on your mind?"></textarea>
+          <br><br>
+
+      
+          <select id="discussions" name="discussions">
+            <option value="1">Discussion 1</option>
+            <option value="2">Discussion 2</option>
+            <option value="3">Discussion 3</option>
+            <option value="4">Discussion 4</option>
+          </select>
+          <br><br>
+
+          <select id="users" name="users">
+            <option value="1">Jeff</option>
+          </select>
+          <br><br>
+      
+          <input id= 'create-button' type="submit" name="submit" value="Comment" class="submit">
+        </form>
+    
+    </div>
+
+    <div id="discussion-container"></div>
+
 </body>
 </html>
