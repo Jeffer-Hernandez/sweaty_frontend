@@ -44,5 +44,28 @@ function createFormHandler(e){
 }
 
 function postFetch(content_input, discussion_id, user_id){
+  const bodyData = {content_input, discussion_id, user_id}
+  fetch(endPoint, {
+    // POST request
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(comment => {
+    console.log(comment);
+    // const commentData = comment.data
+    // render JSON response
+    const discussionMarkup = `
+    <div data-id=${comment.id}>
+    <h3>from: ${comment.attributes.user.name}</h3>
+    <h3>discussion: ${comment.attributes.discussion.title}</h3>
+    <h3>comments:${comment.attributes.content}</h3>
+    
+    </div>
+    <br><br>`;
+
+      document.querySelector('#discussion-container').innerHTML += discussionMarkup
+  })
 
 }
