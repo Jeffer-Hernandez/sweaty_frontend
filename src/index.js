@@ -38,13 +38,13 @@ function createFormHandler(e){
   const contentInput = document.querySelector("#input-content").value
   const discussionId = parseInt(document.querySelector("#discussions").value)
   const userId = parseInt(document.querySelector("#users").value)
-
-  postFetch(contentInput, discussionId, userId)
+  // console.log(contentInput, userId, discussionId)
+  postFetch(contentInput, userId, discussionId )
 
 }
 
-function postFetch(content_input, discussion_id, user_id){
-  const bodyData = {content_input, discussion_id, user_id}
+function postFetch(content, user_id, discussion_id){
+  const bodyData = {content, user_id, discussion_id}
   fetch(endPoint, {
     // POST request
     method: "POST",
@@ -54,18 +54,19 @@ function postFetch(content_input, discussion_id, user_id){
   .then(response => response.json())
   .then(comment => {
     console.log(comment);
-    // const commentData = comment.data
-    // render JSON response
-    const discussionMarkup = `
-    <div data-id=${comment.id}>
-    <h3>from: ${comment.attributes.user.name}</h3>
-    <h3>discussion: ${comment.attributes.discussion.title}</h3>
-    <h3>comments:${comment.attributes.content}</h3>
-    
-    </div>
-    <br><br>`;
 
-      document.querySelector('#discussion-container').innerHTML += discussionMarkup
+//     // const commentData = comment.data
+//     // render JSON response
+//     const discussionMarkup = `
+//     <div data-id=${comment.id}>
+//     <h3>from: ${comment.attributes.user.name}</h3>
+//     <h3>discussion: ${comment.attributes.discussion.title}</h3>
+//     <h3>comments:${comment.attributes.content}</h3>
+    
+//     </div>
+//     <br><br>`;
+
+//       document.querySelector('#discussion-container').innerHTML += discussionMarkup
   })
 
 }
