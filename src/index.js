@@ -18,24 +18,11 @@ function getDiscussions() {
         // JSON data will be nested due to Serializer
         json.data.forEach(comment => {
           let newComment = new Comment(comment, comment.attributes)
-          render(comment)})
+          document.querySelector('#discussion-container').innerHTML += newComment.render()
         })
-      }
-
-function render(comment){
-  const discussionMarkup = `
-          <div data-id=${comment.id}>
-          <h3>from: ${comment.attributes.user.name}</h3>
-          <h3>discussion: ${comment.attributes.discussion.title}</h3>
-          <h3>comment:${comment.attributes.content}</h3>
-          
-          </div>
-          <br><br>`;
-  
-            document.querySelector('#discussion-container').innerHTML += discussionMarkup
-        
-}
-
+      })
+    }
+    
 
 function createFormHandler(e){
   e.preventDefault()
@@ -64,7 +51,9 @@ function postFetch(content, user_id, discussion_id){
 
     commentData = comment.data
     // render JSON response
-    render(commentData);
+    let newComment = new Comment(commentData, commentData.attributes)
+
+    document.querySelector('#discussion-container').innerHTML += newComment.render()
   })
 }
 
