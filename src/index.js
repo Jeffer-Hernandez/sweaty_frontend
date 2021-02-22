@@ -15,7 +15,7 @@ function getDiscussions() {
     fetch(endPoint)
       .then(res => res.json())
       .then(json => {
-        // remember our JSON data is a bit nested due to our serializer
+        // JSON data will be nested due to Serializer
         json.data.forEach(comment => {
           // double check how your data is nested in the console so you can successfully access the attributes of each individual object
           const discussionMarkup = `
@@ -56,12 +56,14 @@ function postFetch(content, user_id, discussion_id){
   .then(response => response.json())
   .then(comment => {
     console.log(comment)
-    
+
+    commentData = comment.data
     // render JSON response
     const discussionMarkup = `
-    <div data-id=${comment.id}>
-    
-    <h3>comment:${comment.content}</h3>
+    <div data-id=${commentData.id}>
+    <h3>comment:${commentData.attributes.user.name}</h3>
+    <h3>comment:${commentData.attributes.discussion.title}</h3>
+    <h3>comment:${commentData.attributes.content}</h3>
 
     
     </div>
@@ -71,3 +73,6 @@ function postFetch(content, user_id, discussion_id){
   })
 
 }
+
+
+
