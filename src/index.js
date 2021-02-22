@@ -22,7 +22,7 @@ function getDiscussions() {
           <div data-id=${comment.id}>
           <h3>from: ${comment.attributes.user.name}</h3>
           <h3>discussion: ${comment.attributes.discussion.title}</h3>
-          <h3>comments:${comment.attributes.content}</h3>
+          <h3>comment:${comment.attributes.content}</h3>
           
           </div>
           <br><br>`;
@@ -55,20 +55,19 @@ function postFetch(content, user_id, discussion_id){
   })
   .then(response => response.json())
   .then(comment => {
-    console.log(comment);
-
-//     // const commentData = comment.data
-//     // render JSON response
-//     const discussionMarkup = `
-//     <div data-id=${comment.id}>
-//     <h3>from: ${comment.attributes.user.name}</h3>
-//     <h3>discussion: ${comment.attributes.discussion.title}</h3>
-//     <h3>comments:${comment.attributes.content}</h3>
+    console.log(comment)
     
-//     </div>
-//     <br><br>`;
+    // render JSON response
+    const discussionMarkup = `
+    <div data-id=${comment.id}>
+    
+    <h3>comment:${comment.content}</h3>
 
-//       document.querySelector('#discussion-container').innerHTML += discussionMarkup
+    
+    </div>
+    <br><br>`;
+
+      document.querySelector('#discussion-container').innerHTML += discussionMarkup
   })
 
 }
