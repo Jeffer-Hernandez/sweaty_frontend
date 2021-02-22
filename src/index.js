@@ -43,6 +43,8 @@ function createFormHandler(e){
 
 }
 
+// arguments passed in should be concurrent with strong params function on backend
+// for bodyData to work
 function postFetch(content, user_id, discussion_id){
   const bodyData = {content, user_id, discussion_id}
   fetch(endPoint, {
