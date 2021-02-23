@@ -9,6 +9,10 @@ class Comment {
         Comment.all.push(this)
     }
 
+    static findById(id) {
+        return this.all.find(comment => id === id);
+    }
+
     render(){
         console.log(this)
         return  `
@@ -16,7 +20,7 @@ class Comment {
                 <h3>from: ${this.user.name}</h3>
                 <h3>discussion: ${this.discussion.title}</h3>
                 <h3>comment:${this.content}</h3>
-                
+                <button data-id=${this.id} type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
                 <br><br>`;  
     }
@@ -40,8 +44,14 @@ class Comment {
             <option value="4">Discussion 4</option>
           </select>
           <br><br>
+
+          <select id="users" name="users">
+            <option value="1">Jeff</option>
+          </select>
+          <br><br>
     
           <input id='edit-button' type="submit" name="submit" value="Edit Comment" class="submit">
+
         </form>
       `;
     }
