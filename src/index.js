@@ -3,8 +3,14 @@ const endPoint = "http://localhost:3000/api/v1/comments";
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM is Loaded")
   getDiscussions()
+
   const createCommentForm = document.querySelector("#create-comment-form")
   createCommentForm.addEventListener("submit", (e) => createFormHandler(e))
+
+  const commentContainer = document.querySelector('#discussion-container')
+  commentContainer.addEventListener('click', e => {
+    console.log('clicked');
+  });
 });
 
 function getDiscussions() {
