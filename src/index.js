@@ -1,7 +1,6 @@
 const endPoint = "http://localhost:3000/api/v1/comments";
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM is Loaded")
   getDiscussions()
 
   const createCommentForm = document.querySelector("#create-comment-form")
@@ -12,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = parseInt(e.target.dataset.id);
     const comment = Comment.findById(id);
     document.querySelector('#update-comment').innerHTML = comment.renderUpdateForm();
+    });
 
-    // listen for the submit event of the edit form and handle the data
-    document.querySelector('#update-comment').addEventListener('submit', e => updateFormHandler(e))
-  });
+  // listen for the submit event of the edit form and handle the data
+  document.querySelector('#update-comment').addEventListener('submit', e => updateFormHandler(e))
+
 });
 
 function getDiscussions() {
@@ -33,18 +33,20 @@ function getDiscussions() {
 function createFormHandler(e){
   e.preventDefault()
 
-  const content_input = document.querySelector("#input-content").value
+  const content = document.querySelector("#input-content").value
   const discussion_id = parseInt(document.querySelector("#discussions").value)
   const user_id = parseInt(document.querySelector("#users").value)
   // console.log(contentInput, userId, discussionId)
-  postFetch(content_input, user_id, discussion_id )
+  postFetch(content, user_id, discussion_id )
 }
 
 function updateFormHandler(e) {
   e.preventDefault();
 
+  
   const id = parseInt(e.target.dataset.id);
   const comment = Comment.findById(id);
+  console.log(comment)
   const content = e.target.querySelector('#input-content').value;
   const discussion_id = parseInt(e.target.querySelector('#discussions').value);
   const user_id = parseInt(e.target.querySelector('#users').value);
@@ -73,7 +75,7 @@ function postFetch(content, user_id, discussion_id){
 }
 
 function patchComment(comment, content, user_id, discussion_id) {
-  const bodyJSON = { comment, content, user_id, discussion_id }
+  const bodyJSON = { content, user_id, discussion_id }
   fetch(`http://localhost:3000/api/v1/comments/${comment.id}`, {
     method: 'PATCH',
     headers: {
@@ -82,12 +84,14 @@ function patchComment(comment, content, user_id, discussion_id) {
     },
     body: JSON.stringify(bodyJSON),
   })
-    .then(res => res.json())
+    .then(response => response.json())
     // our backend responds with the updated syllabus instance represented as JSON
-    .then(updatedComment => {
+    .then(comment => {
+      
+      commentData = comment.data
+      let updatedComment = new Comment(commentData, commentData.attributes)
 
-      console.log(updatedComment)
-
+      document.querySelector('#discussion-container').innerHTML += updatedComment.render()
     });
 }
 
