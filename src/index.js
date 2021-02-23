@@ -74,7 +74,7 @@ function postFetch(content, user_id, discussion_id){
 
 function patchComment(comment, content, user_id, discussion_id) {
   const bodyJSON = { comment, content, user_id, discussion_id }
-  fetch(`${endPoint}/${comment.id}`, {
+  fetch(endPoint, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -84,7 +84,11 @@ function patchComment(comment, content, user_id, discussion_id) {
   })
     .then(res => res.json())
     // our backend responds with the updated syllabus instance represented as JSON
-    .then(updatedComment => console.log(updatedComment));
+    .then(updatedComment => {
+
+      console.log(updatedComment)
+
+    });
 }
 
 
