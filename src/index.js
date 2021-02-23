@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   commentContainer.addEventListener('click', e => {
     const id = parseInt(e.target.dataset.id);
     const comment = Comment.findById(id);
-    document.querySelector('#update-comment').innerHTML = syllabus.renderUpdateForm();
+    document.querySelector('#update-comment').innerHTML = comment.renderUpdateForm();
 
     // listen for the submit event of the edit form and handle the data
     document.querySelector('#update-comment').addEventListener('submit', e => updateFormHandler(e))
@@ -33,11 +33,11 @@ function getDiscussions() {
 function createFormHandler(e){
   e.preventDefault()
 
-  const contentInput = document.querySelector("#input-content").value
-  const discussionId = parseInt(document.querySelector("#discussions").value)
-  const userId = parseInt(document.querySelector("#users").value)
+  const content_input = document.querySelector("#input-content").value
+  const discussion_id = parseInt(document.querySelector("#discussions").value)
+  const user_id = parseInt(document.querySelector("#users").value)
   // console.log(contentInput, userId, discussionId)
-  postFetch(contentInput, userId, discussionId )
+  postFetch(content_input, user_id, discussion_id )
 }
 
 function updateFormHandler(e) {
@@ -71,6 +71,22 @@ function postFetch(content, user_id, discussion_id){
   document.querySelector('#discussion-container').innerHTML += newComment.render()
   })
 }
+
+function patchComment(comment, content, user_id, discussion_id) {
+  const bodyJSON = { comment, content, user_id, discussion_id }
+  fetch(`${endPoint}/${comment.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(bodyJSON),
+  })
+    .then(res => res.json())
+    // our backend responds with the updated syllabus instance represented as JSON
+    .then(updatedComment => console.log(updatedComment));
+}
+
 
 
 
