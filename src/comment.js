@@ -14,7 +14,6 @@ class Comment {
     }
 
     render(){
-        console.log(this)
         return  `
                 <div data-id=${this.id}>
                 <h3>from: ${this.user.name}</h3>
@@ -29,10 +28,10 @@ class Comment {
     renderUpdateForm() {
         return `
         <form data-id=${this.id} >
-          <h3>Create a Comment!</h3>
+          <h3>Edit your comment:</h3>
           <br><br>
           
-          <textarea id='input-content' name="content" rows="8" cols="80" value="" placeholder="What's on your mind?"></textarea>
+          <textarea id='input-content' name="content" rows="8" cols="80" value="">${this.content}</textarea>
           <br><br>
 
     
