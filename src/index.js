@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   commentContainer.addEventListener('click', e => {
     const id = parseInt(e.target.dataset.id);
     const comment = Comment.findById(id);
-    console.log(comment);
+    document.querySelector('#update-comment').innerHTML = syllabus.renderUpdateForm();
+
+    // listen for the submit event of the edit form and handle the data
+    document.querySelector('#update-comment').addEventListener('submit', e => updateFormHandler(e))
   });
 });
 
@@ -35,6 +38,17 @@ function createFormHandler(e){
   const userId = parseInt(document.querySelector("#users").value)
   // console.log(contentInput, userId, discussionId)
   postFetch(contentInput, userId, discussionId )
+}
+
+function updateFormHandler(e) {
+  e.preventDefault();
+
+  const id = parseInt(e.target.dataset.id);
+  const comment = Comment.findById(id);
+  const content = e.target.querySelector('#input-content').value;
+  const discussion_id = parseInt(e.target.querySelector('#discussions').value);
+  const user_id = parseInt(e.target.querySelector('#users').value);
+  patchComment(comment, content, user_id, discussion_id)
 }
     
 // arguments passed in should be concurrent with strong params function on backend for bodyData to work
