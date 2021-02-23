@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const commentContainer = document.querySelector('#discussion-container')
   commentContainer.addEventListener('click', e => {
-    console.log('clicked');
+    const id = parseInt(e.target.dataset.id);
+    const comment = Comment.findById(id);
+    console.log(comment);
   });
 });
 
