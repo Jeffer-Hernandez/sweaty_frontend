@@ -1,28 +1,23 @@
 const endPoint = "http://localhost:3000/api/v1/comments";
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM is Loaded")
-    getDiscussions()
-
-    const createCommentForm = document.querySelector("#create-comment-form")
-
-    createCommentForm.addEventListener("submit", (e) => createFormHandler(e))
-
+  console.log("DOM is Loaded")
+  getDiscussions()
+  const createCommentForm = document.querySelector("#create-comment-form")
+  createCommentForm.addEventListener("submit", (e) => createFormHandler(e))
 });
 
-
 function getDiscussions() {
-    fetch(endPoint)
-      .then(res => res.json())
-      .then(json => {
-        // JSON data will be nested due to Serializer
-        json.data.forEach(comment => {
-          let newComment = new Comment(comment, comment.attributes)
-          document.querySelector('#discussion-container').innerHTML += newComment.render()
-        })
-      })
-    }
-    
+  fetch(endPoint)
+  .then(res => res.json())
+  .then(json => {
+  // JSON data will be nested due to Serializer
+  json.data.forEach(comment => {
+  let newComment = new Comment(comment, comment.attributes)
+  document.querySelector('#discussion-container').innerHTML += newComment.render()
+    })
+  })
+}
 
 function createFormHandler(e){
   e.preventDefault()
@@ -32,11 +27,9 @@ function createFormHandler(e){
   const userId = parseInt(document.querySelector("#users").value)
   // console.log(contentInput, userId, discussionId)
   postFetch(contentInput, userId, discussionId )
-
 }
-
-// arguments passed in should be concurrent with strong params function on backend
-// for bodyData to work
+    
+// arguments passed in should be concurrent with strong params function on backend for bodyData to work
 function postFetch(content, user_id, discussion_id){
   const bodyData = {content, user_id, discussion_id}
   fetch(endPoint, {
@@ -47,13 +40,13 @@ function postFetch(content, user_id, discussion_id){
   })
   .then(response => response.json())
   .then(comment => {
-    console.log(comment)
+  console.log(comment)
 
-    commentData = comment.data
-    // render JSON response
-    let newComment = new Comment(commentData, commentData.attributes)
+  commentData = comment.data
+  // render JSON response
+  let newComment = new Comment(commentData, commentData.attributes)
 
-    document.querySelector('#discussion-container').innerHTML += newComment.render()
+  document.querySelector('#discussion-container').innerHTML += newComment.render()
   })
 }
 
