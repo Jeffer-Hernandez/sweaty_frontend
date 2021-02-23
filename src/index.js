@@ -74,7 +74,7 @@ function postFetch(content, user_id, discussion_id){
 
 function patchComment(comment, content, user_id, discussion_id) {
   const bodyJSON = { comment, content, user_id, discussion_id }
-  fetch(endPoint, {
+  fetch(`http://localhost:3000/api/v1/comments/${comment.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
